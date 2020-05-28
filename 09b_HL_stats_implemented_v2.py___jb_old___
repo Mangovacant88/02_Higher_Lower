@@ -1,0 +1,84 @@
+# HL componenet 9b - End Game Stats
+
+# To Do
+# Set up Game Play List with each round's results
+# Set up average, best and worst scores ( see 09b Stats_experiment)
+
+import random
+
+# Initialise variables
+GUESSES_ALLOWED = 4
+rounds = 3
+
+num_won = 0
+rounds_played = 0
+
+# list holds # of guesses used in each game
+game_stats = []
+
+while rounds_played < rounds:
+
+    # Generate secret number
+    secret = random.randint(1,100)
+    print("secret for testing: ", secret)
+
+    # decrease round #
+    rounds -= 1
+
+    guess = ""
+    guesses_left = GUESSES_ALLOWED
+
+    # while guesses are left, ask user to guess...
+    while guess != secret and guesses_left >= 1:
+
+        # Ask user to guess and take one away from guesses left
+        guess = int(input("Guess: "))
+        guesses_left -= 1
+
+        if guess < secret:
+            status = "Too low."
+            suggestion = "Try a higher number. Guesses left: {}".format(guesses_left)
+
+        elif guess > secret:
+            status = "Too high."
+            suggestion = "Try a lower number. Guesses left: {}".format(guesses_left)
+
+        else:
+            status = "found it"
+            print(status)
+            break
+
+        if guesses_left >= 1:
+            print("{} {}".format(status, suggestion))
+        else:
+            print(status)
+
+
+        # Correct
+
+
+# print game outcomes...
+print("*** Score for Each Round...***")
+list_count = 1
+for item in game_stats:
+
+    # indicates if games has been won or lost
+    if item > GUESSES_ALLOWED:
+        status = "lost, ran out of guesses"
+    else:
+        status = "won"
+
+    print("Round {}: {} ({})".format(list_count, item))
+    list_count += 1
+
+# Calculate statistics
+game_stats.sort()
+best = game_stats[0]
+worst = game_stats[-1]
+average = sum(game_stats)/len(game_stats)
+
+print()
+print("*** Summary Statistics ***")
+print("Best: {}".format(best))
+print("Worst: {}".format(worst))
+print("Average: {:.2f}".format(average))
