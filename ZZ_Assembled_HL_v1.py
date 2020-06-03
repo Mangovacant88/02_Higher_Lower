@@ -62,7 +62,6 @@ while rounds_played < rounds:
     print("Round # {}".format(rounds_played+1))
     secret = random.randrange(lowest, highest)
 
-
     guess = ""
     guesses_left = guesses_allowed
 
